@@ -19,9 +19,8 @@ export class ImagesComponent implements OnInit {
   pauseOnFocus = true;
 
 
-  constructor() { }
-
   ngOnInit(): void {
+    console.log('OnInit')
   }
 
 

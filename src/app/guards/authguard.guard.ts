@@ -1,6 +1,5 @@
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login.service';
 
@@ -17,11 +16,11 @@ export class AuthguardGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
+
       let loginValue =  this.loginService.loginValue();
 
       console.log('guard in')
-      
+
       if(loginValue == null){
         this.route.navigate(['/login'], {queryParams: {returnUrl: state.url}})
         return false
@@ -29,5 +28,5 @@ export class AuthguardGuard implements CanActivate {
 
     return true;
   }
-  
+
 }

@@ -3,12 +3,12 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Observable} from 'rxjs';
 import {LoginService} from "../services/login.service";
 import {LoginModel} from "../model/login.model";
-import {finalize, tap} from "rxjs/operators";
-
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
+
   usuario!: LoginModel | null;
   token!: String | undefined;
+
   constructor(
     public accounttService:LoginService
 ){
@@ -20,11 +20,22 @@ export class AuthHttpInterceptor implements HttpInterceptor {
 }
 
 intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
+
+  let loginValue = this.accounttService.loginValue();
+  let token = loginValue?.token;
+
+
+  if(loginValue && token){
     request = request.clone({
-        setHeaders: {
-          Authorization: `Basic ${this.token}` // Añado token
-          }
+      setHeaders: {
+        //Authorization: `Basic ${this.token}` // Añado token
+        Authorization: 'Basic ' + token
+        }
     });
+  }else{
+    console.log('La petición no requiere autorización');
+  }
+
     return next.handle(request);
 }
 }
