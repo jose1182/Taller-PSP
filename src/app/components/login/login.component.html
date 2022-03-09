@@ -1,39 +1,47 @@
 <div class="col-md-6 offset-md-3 mt-5">
     <div class="alert alert-info">
-        Email: <strong>eve.holt@reqres.in</strong><br/>
-        Password: <strong>cityslicka</strong>
+      Usuario: eve.holt@reqres.in<br />
+      Contraseña: cityslicka
     </div>
-    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-        <strong>Message!</strong> {{ error.error.error }}
-    </div>
-    <div class="card">
-        <h4 class="card-header">Iniciar Sesión</h4>
-            <div class="card-body">
-                <form [formGroup]="this.loginForm" (ngSubmit)="onSubmit()">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                        <div *ngIf="f.username.errors.required">Email is required</div>
-                        <div *ngIf="f.username.errors.email">{{ f.username.value }} is not valid!</div>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" formControlName="password" class="form-control" [ngClass]="{'is-invalid': submitted && f.password.errors}" id="exampleInputPassword1" placeholder="Password">
-                      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is required</div>
-                    </div>
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button [disabled]="loading" type="submit" class="btn btn-primary">Iniciar Seción
-                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    </button>
-                </form>
-            </div>
-    </div>
-</div>
+    <form [formGroup]="this.loginForm" (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email usuario</label>
+        <input type="email"
+               formControlName="username"
+               class="form-control is-invalid"
+               id="exampleInputEmail1"
+               aria-describedby="emailHelp"
+               [ngClass]="{
+                'is-invalid': this.enviado && this.loginForm.controls.username.errors
+               }"
+               placeholder="Introduce tu email">
+        <small id="emailHelp" class="form-text text-muted">Nunca compartas las contraseñas con nadie.</small>
+        <div class="invalid-feedback" *ngIf="enviado && this.loginForm.controls.username.errors?.required">¡Tienes que
+          rellenar este campo!
+        </div>
+        <div class="invalid-feedback" *ngIf="enviado && this.loginForm.controls.username.errors?.email">¡Esto no es un
+          email!
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Contraseña</label>
+        <input type="password"
+               class="form-control"
+               id="exampleInputPassword1"
+               formControlName="password"
+               [ngClass]="{
+                'is-invalid': this.enviado && this.loginForm.controls.password.errors
+               }"
+               placeholder="Contraseña">
+        <div class="invalid-feedback" *ngIf="enviado && this.loginForm.controls.password.errors?.required">¡Tienes que
+          rellenar este
+          campo!
+        </div>
+      </div>
+      <button [disabled]="isLoading" type="submit" class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm mr-1" *ngIf="isLoading"></span>
+        Iniciar sesión
+      </button>
+      <div *ngIf="errorMsg" class="alert alert-danger mt-3 mb-0">{{errorMsg}}</div>
+    </form>
+  </div>
