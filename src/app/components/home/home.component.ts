@@ -31,8 +31,9 @@ export class HomeComponent implements OnInit {
   updateData(): void{
     this.loading = true;
     this.userService.getUsers(this.page).subscribe(r=>{
+      console.log('respond: ', r)
       this.uResponse = r;
-      this.totalPages = this.uResponse.total_page * 10;
+      this.totalPages = this.uResponse.total_pages *10;
       this.loading = false;
     })
   }
