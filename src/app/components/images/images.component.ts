@@ -10,7 +10,7 @@ export class ImagesComponent implements OnInit {
 
 
 
-  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/1500/500`);
+  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/1900/500`);
 
   paused = false;
   unpauseOnArrow = false;
