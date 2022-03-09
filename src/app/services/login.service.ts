@@ -41,4 +41,8 @@ export class LoginService {
     this.route.navigate(['/login']);
   }
 
+  loginValue(): LoginModel | null{
+    return this.loginModelBehaviorSubject?.value
+  }
+
 }

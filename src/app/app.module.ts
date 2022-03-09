@@ -1,3 +1,4 @@
+import { AuthguardGuard } from './guards/authguard.guard';
 import { ServicesModule } from './services/services.module';
 import { AuthHttpInterceptor } from './interceptors/auth-http.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -24,6 +25,7 @@ import { InterceptorsModule } from './interceptors/interceptors.module';
     ServicesModule
   ],
   providers: [
+    AuthguardGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
